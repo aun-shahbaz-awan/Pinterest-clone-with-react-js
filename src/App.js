@@ -3,9 +3,11 @@ import './App.css';
 import Header from "./components/Header";
 import MainBoard from "./components/Mainboard";
 import unsplash from "./api/unsplash";
+import SinglePin from "./components/SinglePin";
 
 function App() {
     const [pins, setPins] = useState([  ]);
+    const [pin,setPin] = useState([])
     const getImages = searchTerm =>{
         return unsplash.get("https://api.unsplash.com/search/photos/",{
             params:{
@@ -42,6 +44,13 @@ function App() {
             console.log("Handle Search Result:",result.data.results)
         })
     }
+    const handleOpen = singlePin =>{
+        console.log("This is pin:",singlePin)
+        setPin(singlePin);
+    };
+    const handleBack = () =>{
+        setPin([]);
+    }
     const handleHome = () =>{
         loadImages();
     }
@@ -51,7 +60,8 @@ function App() {
     return (
         <div className="App">
             <Header onSearch={handleSearch} onHome={handleHome}/>
-            <MainBoard pins={pins}/>
+            {pin.length == ""?"":<SinglePin pin={pin} onBack={handleBack} />}
+            <MainBoard pins={pins} onOpen={handleOpen}/>
         </div>
     );
 }

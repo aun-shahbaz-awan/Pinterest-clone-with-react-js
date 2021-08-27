@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import Pin from "./Pin";
 
-const MainBoard = ({pins}) => {
+const MainBoard = ({pins, onOpen}) => {
     return (
         <Wrapper>
             <Container>
-                { pins.map( pin => { return <Pin url={pin.urls.small}/> }) }
+                { pins.map( pin => { return <Pin url={pin.urls.small} pin={pin} onOpen={onOpen}/> }) }
                 {pins.length?"":<h1>No Result Found!</h1>}
             </Container>
         </Wrapper>
@@ -24,6 +24,6 @@ const Wrapper = styled.div`
 const Container = styled.div`
     width:95%;
     height: 100%;
-    columns: 6 150px;
+    columns: 5 180px;
     column-gap: 0; 
 `

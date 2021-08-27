@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Pin = ({url}) => {
+const Pin = ({pin, url, onOpen}) => {
     return (
         <Wrapper>
             <Container>
-                <img src={url} alt="pin"/>
+                <img src={url} alt="pin" onClick={ () => onOpen(pin)}/>
             </Container>
         </Wrapper>
     );
