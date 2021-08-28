@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import MainBoard from "./components/Mainboard";
 import unsplash from "./api/unsplash";
 import SinglePin from "./components/SinglePin";
+import {Switch, Route} from "react-router-dom";
 
 function App() {
     const [pins, setPins] = useState([  ]);
@@ -12,14 +13,14 @@ function App() {
         return unsplash.get("https://api.unsplash.com/search/photos/",{
             params:{
                 query: searchTerm,
-                per_page: 15
+                per_page: 5
             }
         })
     }
     const loadImages = () =>{
         let promises = [];
         let pinsData = [];
-        let terms = ["cars", "nature", "beach", "wallpapers","models"]
+        let terms = ["cars", "nature", "beach", "wallpapers","travel"]
         terms.forEach( term =>{
             promises.push(
                 getImages(term).then( (result) => {
@@ -60,8 +61,17 @@ function App() {
     return (
         <div className="App">
             <Header onSearch={handleSearch} onHome={handleHome}/>
-            {pin.length == ""?"":<SinglePin pin={pin} onBack={handleBack} />}
+            {pin.length == ""?"":<SinglePin pin={pin} onBack={handleBack} onTag={handleSearch} />}
             <MainBoard pins={pins} onOpen={handleOpen}/>
+
+            {/*<div className="content">*/}
+            {/*    <Switch>*/}
+            {/*        <Route path="/pin">*/}
+            {/*            {pin.length == ""?"":<SinglePin pin={pin} onBack={handleBack} />}*/}
+            {/*        </Route>*/}
+            {/*        <Route exact path="/"><MainBoard pins={pins} onOpen={handleOpen}/></Route>*/}
+            {/*    </Switch>*/}
+            {/*</div>*/}
         </div>
     );
 }

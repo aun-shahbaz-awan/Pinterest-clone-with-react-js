@@ -4,7 +4,7 @@ import {MoreHoriz, Share, ExpandMore, ArrowBack} from "@material-ui/icons";
 import {IconButton, Tab, Antstap} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
-const SinglePin = ({pin, onBack}) => {
+const SinglePin = ({pin, onBack, onTag}) => {
     return (
         <Wrapper>
             <Container>
@@ -14,6 +14,7 @@ const SinglePin = ({pin, onBack}) => {
 
                 <img src={pin.urls.small} alt="Single Pin"/>
                 <section>
+                    {/*Follow*/}
                     <header>
                         <IconWrapper>
                             <IconButton> <MoreHoriz/> </IconButton>
@@ -51,7 +52,13 @@ const SinglePin = ({pin, onBack}) => {
 
                     </TabsWrapper>
                     {/*Tags*/}
-                    
+                    <TagsWrapper>
+                            { pin.tags.map( tag =>
+                                <div onClick={ () =>{ onTag(tag.title) }}>
+                                    <h5> {tag.title} </h5>
+                                </div>
+                            )}
+                    </TagsWrapper>
                 </section>
             </Container>
         </Wrapper>
@@ -61,6 +68,21 @@ export default SinglePin;
 
 const Wrapper = styled.div`
     margin: 2rem 11rem;
+    @media (max-width: 1300px) {
+        margin: 2rem 9rem;
+    }
+    @media (max-width: 1100px) {
+        margin: 2rem 7rem;
+    }
+    @media (max-width: 900px) {
+        margin: 2rem 5rem;
+    }
+    @media (max-width: 600px) {
+        margin: 2rem 2rem;
+    }
+    @media (max-width: 400px) {
+        margin: 2rem 1rem;
+    }
     border-radius: 25px;
     box-shadow:
       1px 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -72,16 +94,29 @@ const Wrapper = styled.div`
     ;   
 `
 const Container = styled.div`
-    display:flex;
+    display: flex;
+    @media (max-width: 800px) {
+        flex-direction: column;
+    }
     padding: 1rem;
     img{
-        border-radius: 25px;
         width:50%;
+        @media (max-width: 800px) {
+            width: 100%;
+        }
+        border-radius: 25px;
         object-fit: cover;
     }
     section{
-        width:100%;
-        padding: 2rem;
+        width:50%;
+        padding:2rem 1rem 2rem 2rem;
+        @media (max-width: 1100px) {
+            padding: 1rem 0.5rem 1rem 1rem;
+        }
+        @media (max-width: 800px) {
+            width: 100%;
+            padding: 1rem 0;
+        }
         header{
             display:flex;
             justify-content:space-between; 
@@ -110,19 +145,23 @@ const IconWrapper = styled.div`
         font-size: 26px;
     }
 `
-const SaveButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
     display: flex;
-    height: 35px;
-    width: 60px;
     justify-content:center;
     align-items: center;
     border-radius:25px;
-    background:#E60023;
-    color:white;
     cursor:pointer;
     font-weight: 700;
     a{
-        text-decoration:none;
+        text-decoration:none;  
+    }
+`
+const SaveButtonWrapper = styled(ButtonWrapper)`
+    height: 35px;
+    width: 60px;
+    background:#E60023;
+    color:white;
+    a{
         color:white;        
     }
 `
@@ -144,22 +183,33 @@ const FollowUser = styled.div`
     align-items:center;
     margin-left:1rem;
 `
-const FollowButtonWrapper = styled.div`
-    display: flex;
+const FollowButtonWrapper = styled(ButtonWrapper)`
     height: inheritance;
     width: 100px;
-    justify-content:center;
-    align-items: center;
-    border-radius:25px;
     background:#D3D3D3;
     color:#000;
-    font-weight: 700;
-    cursor:pointer;
     a{
-        text-decoration:none;
         color:#000;
     }
 `
 const TabsWrapper = styled.div`
 
+`
+const TagsWrapper = styled.div`
+    display:flex;
+    padding:1rem 0;
+    div{
+        margin-right: 5px;
+        color: #666666;
+        border:1px solid #D3D3D3;
+        border-radius: 25px;
+        cursor:pointer;
+    }
+    div:hover{
+        color: #E60023;
+        border:1px solid #E60023;
+    }
+    h5{
+        padding: 2px 7px 3px 7px;
+    }
 `
