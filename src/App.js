@@ -5,6 +5,7 @@ import MainBoard from "./components/Mainboard";
 import unsplash from "./api/unsplash";
 import PinAndBoard from "./components/PinAndBoard";
 import { Route, Switch } from 'react-router-dom';
+import styled from "styled-components";
 
 function App() {
     const [pins, setPins] = useState([  ]);

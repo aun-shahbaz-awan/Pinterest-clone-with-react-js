@@ -155,6 +155,7 @@ const Wrapper = styled.div`
     ;   
 `
 const Container = styled.div`
+    margin-top: 100px;
     display: flex;
     position: relative;
     @media (max-width: 800px) {
