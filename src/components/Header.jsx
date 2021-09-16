@@ -48,9 +48,12 @@ const Wrapper = styled.div`
     display:flex;
     align-items: center;
     height:56px;
-    padding: 12px 4px 4px 16px;
+    padding: 12px 4px 12px 16px;
     background: white;
     color:black;
+    -webkit-box-shadow: 0 5px 6px -6px #777;
+    -moz-box-shadow: 0 5px 6px -6px #777;
+    box-shadow: 0 5px 6px -6px #777;
 `
 const LogoWrapper = styled.div`
     .MuiSvgIcon-root{

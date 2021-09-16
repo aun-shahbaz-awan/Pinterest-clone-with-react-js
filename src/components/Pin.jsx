@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from "react-router-dom";
 
 const Pin = ({pin, url, onOpen}) => {
     return (
         <Wrapper>
             <Container>
-                <img src={url} alt="pin" onClick={ () => onOpen(pin)}/>
+                <Link to="/pin">
+                    <img key={pin.id} src={url} alt="pin" onClick={ () => onOpen(pin)}/>
+                </Link>
             </Container>
         </Wrapper>
     );

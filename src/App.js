@@ -3,12 +3,13 @@ import './App.css';
 import Header from "./components/Header";
 import MainBoard from "./components/Mainboard";
 import unsplash from "./api/unsplash";
-import SinglePin from "./components/SinglePin";
-import {Switch, Route} from "react-router-dom";
+import PinAndBoard from "./components/PinAndBoard";
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
     const [pins, setPins] = useState([  ]);
-    const [pin,setPin] = useState([])
+    const [pin,setPin] = useState([]);
+    const [terms, setTerms] = useState(["cars", "nature", "beach", "wallpapers","travel","macbook","camping"]);
     const getImages = searchTerm =>{
         return unsplash.get("https://api.unsplash.com/search/photos/",{
             params:{
@@ -20,7 +21,6 @@ function App() {
     const loadImages = () =>{
         let promises = [];
         let pinsData = [];
-        let terms = ["cars", "nature", "beach", "wallpapers","travel"]
         terms.forEach( term =>{
             promises.push(
                 getImages(term).then( (result) => {
@@ -40,38 +40,50 @@ function App() {
         })
     }
     const handleSearch = searchTerm =>{
+        setPin([]);
         getImages(searchTerm).then( (result) => {
             setPins( result.data.results );
             console.log("Handle Search Result:",result.data.results)
         })
     }
     const handleOpen = singlePin =>{
-        console.log("This is pin:",singlePin)
         setPin(singlePin);
+        window.scrollTo(0, 85);
+        setTerms( singlePin.tags.map( tag => tag.title) );
+        loadImages();
     };
     const handleBack = () =>{
         setPin([]);
+        // eslint-disable-next-line no-restricted-globals
+        history.back();
     }
     const handleHome = () =>{
+        setTerms(["cars", "nature", "beach", "wallpapers","travel","macbook","camping"]);
+        console.log("Home Terms:",terms);
         loadImages();
     }
-    useEffect( () => {
+    useEffect( ()=>{
         loadImages();
-    },loadImages);
+    }, loadImages)
     return (
         <div className="App">
-            <Header onSearch={handleSearch} onHome={handleHome}/>
-            {pin.length == ""?"":<SinglePin pin={pin} onBack={handleBack} onTag={handleSearch} />}
-            <MainBoard pins={pins} onOpen={handleOpen}/>
+            {/*<Header onSearch={handleSearch} onHome={handleHome}/>*/}
+            {/*{ pin.length == ""?"": <PinView pin={pin} onBack={handleBack} onTag={handleSearch}/>}*/}
+            {/*<MainBoard pins={pins} onOpen={handleOpen}/>*/}
 
-            {/*<div className="content">*/}
-            {/*    <Switch>*/}
-            {/*        <Route path="/pin">*/}
-            {/*            {pin.length == ""?"":<SinglePin pin={pin} onBack={handleBack} />}*/}
-            {/*        </Route>*/}
-            {/*        <Route exact path="/"><MainBoard pins={pins} onOpen={handleOpen}/></Route>*/}
-            {/*    </Switch>*/}
-            {/*</div>*/}
+            <Header onSearch={handleSearch} onHome={handleHome}/>
+            <Switch>
+                <Route path="/" exact >
+                    <MainBoard pins={pins} onOpen={handleOpen}/>
+                </Route>
+                <Route path="/pin" render={PinAndBoard}>
+                    <PinAndBoard pin={pin} pins={pins}
+                                 onBack={handleBack}
+                                 onOpen={handleOpen}
+                                 onTag={handleSearch}
+                    />
+                </Route>
+            </Switch>
         </div>
     );
 }
