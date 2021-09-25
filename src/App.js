@@ -1,21 +1,24 @@
 import React, {useEffect, useState} from "react";
-import './App.css';
 import Header from "./components/Header";
 import MainBoard from "./components/Mainboard";
-import unsplash from "./api/unsplash";
 import PinAndBoard from "./components/PinAndBoard";
+import LoginHeader from "./components/LoginHeader";
+import Login from "./components/Login";
+import './App.css';
+import unsplash from "./api/unsplash";
 import { Route, Switch } from 'react-router-dom';
-import styled from "styled-components";
+
+
 
 function App() {
     const [pins, setPins] = useState([  ]);
     const [pin,setPin] = useState([]);
-    const [terms, setTerms] = useState(["cars", "nature", "beach", "wallpapers","travel","macbook","camping"]);
+    const [terms, setTerms] = useState(["luxury", "animals","camping","developer"]);
     const getImages = searchTerm =>{
         return unsplash.get("https://api.unsplash.com/search/photos/",{
             params:{
                 query: searchTerm,
-                per_page: 5
+                per_page: 7
             }
         })
     }
@@ -37,7 +40,6 @@ function App() {
         })
         Promise.all(promises).then( () => {
             setPins(pinsData);
-            console.log("Handle Load Image Result:",pinsData)
         })
     }
     const handleSearch = searchTerm =>{
@@ -49,7 +51,7 @@ function App() {
     }
     const handleOpen = singlePin =>{
         setPin(singlePin);
-        window.scrollTo(0, 85);
+        // window.scrollTo(0, 85);
         setTerms( singlePin.tags.map( tag => tag.title) );
         loadImages();
     };
@@ -68,21 +70,22 @@ function App() {
     }, loadImages)
     return (
         <div className="App">
-            {/*<Header onSearch={handleSearch} onHome={handleHome}/>*/}
-            {/*{ pin.length == ""?"": <PinView pin={pin} onBack={handleBack} onTag={handleSearch}/>}*/}
-            {/*<MainBoard pins={pins} onOpen={handleOpen}/>*/}
-
-            <Header onSearch={handleSearch} onHome={handleHome}/>
             <Switch>
                 <Route path="/" exact >
+                    <Header onSearch={handleSearch} onHome={handleHome}/>
                     <MainBoard pins={pins} onOpen={handleOpen}/>
                 </Route>
                 <Route path="/pin" render={PinAndBoard}>
+                    <Header onSearch={handleSearch} onHome={handleHome}/>
                     <PinAndBoard pin={pin} pins={pins}
                                  onBack={handleBack}
                                  onOpen={handleOpen}
                                  onTag={handleSearch}
                     />
+                </Route>
+                <Route path="/login">
+                    <LoginHeader/>
+                    <Login pins={pins} />
                 </Route>
             </Switch>
         </div>

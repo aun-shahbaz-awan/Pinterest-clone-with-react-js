@@ -5,8 +5,7 @@ import MainBoard from "./Mainboard";
 const PinAndBoard = ({pin, onBack, onTag, pins, onOpen}) => {
     return (
         <div>
-            { pin.length == ""?"": <PinView pin={pin} onBack={onBack} onTag={onTag}/>}
-            {/*<PinView pin={pin} onBack={onBack} onTag={onTag}/>*/}
+            { pin.length === 0 ?"": <PinView pin={pin} onBack={onBack} onTag={onTag}/>}
             <MainBoard pins={pins} onOpen={onOpen}/>
         </div>
     );

@@ -5,7 +5,7 @@ const MainBoard = ({pins, onOpen}) => {
     return (
         <Wrapper>
             <Container>
-                { pins.map( pin => { return <Pin url={pin.urls.small} pin={pin} onOpen={onOpen}/> }) }
+                { pins.map( pin => { return <Pin key={pin.id} url={pin.urls.small} pin={pin} onOpen={onOpen}/> }) }
                 {pins.length?"":<h1>No Result Found!</h1>}
             </Container>
         </Wrapper>
@@ -23,6 +23,6 @@ const Wrapper = styled.div`
 const Container = styled.div`
     width:95%;
     height: 100%;
-    columns: 5 180px;
+    columns: 5 160px;
     column-gap: 0; 
 `

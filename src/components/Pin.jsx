@@ -7,7 +7,7 @@ const Pin = ({pin, url, onOpen}) => {
         <Wrapper>
             <Container>
                 <Link to="/pin">
-                    <img key={pin.id} src={url} alt="pin" onClick={ () => onOpen(pin)}/>
+                    <img src={url} alt="pin" onClick={ () => onOpen(pin)}/>
                 </Link>
             </Container>
         </Wrapper>

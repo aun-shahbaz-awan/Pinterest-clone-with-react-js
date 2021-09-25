@@ -115,7 +115,7 @@ const PinView = ({pin, onBack, onTag}) => {
                     {/*Tags*/}
                     <TagsWrapper>
                         { pin.tags.map( tag =>
-                            <div onClick={ () =>{ onTag(tag.title) }}>
+                            <div key={tag.title} onClick={ () =>{ onTag(tag.title) }}>
                                 <h5> {tag.title} </h5>
                             </div>
                         )}
