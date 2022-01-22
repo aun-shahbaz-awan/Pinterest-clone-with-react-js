@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+![Pinterest](https://livitaly-666b.kxcdn.com/wp-content/uploads/2016/04/Pinterest.jpg)
+# Printerest Clone with React Js
+<!-- <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" width="30" height="30" />  -->
+
+Want to see how pinterest look like? [click here](https://www.pinterest.com/)
 
 This project was created with [Create React App](https://github.com/facebook/create-react-app).
 
